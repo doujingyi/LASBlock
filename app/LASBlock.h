@@ -1,9 +1,9 @@
 #pragma once
-#ifndef LASBLOCK_HPP
-#define LASBLOCK_HPP
+#ifndef LASBLOCK_H
+#define LASBLOCK_H
 #define _CRT_SECURE_NO_WARNINGS
-#include<lasreader.hpp>
-#include<laswriter.hpp>
+#include"lasreader.hpp"
+#include"laswriter.hpp"
 #include<iostream>
 #include<vector>
 #include<algorithm>
@@ -11,6 +11,7 @@
 #include<fstream>
 #include<sstream>
 #include <thread>
+
 enum POXTFIX { LAS, LAZ };
 struct LASinfo
 {
@@ -72,5 +73,5 @@ private:
 };
 unsigned GetFormatRecordLength(uint8_t pointFormat);
 
-#endif // !LASBLOCK_HPP
+#endif // !LASBLOCK_H
 

@@ -28,7 +28,7 @@ A demo project is attached for test
 
 ## Functions
 - [x] tile .las files according to sub-block size
-- [ ] tile .laz files according to sub-block size
+- [x] tile .laz files according to sub-block size
 
 ##  Contact
 If you found bugs or have new ideas,please pull requests:smile:
