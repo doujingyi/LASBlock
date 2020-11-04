@@ -282,7 +282,7 @@ bool LASBlock::singleLasDivideTask(std::pair<std::string, LASinfo> subtile_info,
 		exit(-1);
 	}
 
-	if (_strcmpi(&lastile_path.back(), "z") == 0) {
+	if (strcmp(&lastile_path.back(), "z") == 0) {
 		laswriteopener.set_format(LAS_TOOLS_FORMAT_LAZ);
 	}
 	else {
@@ -325,7 +325,7 @@ bool LASBlock::singleLasDivideTask(std::pair<std::string, LASinfo> subtile_info,
 		double x, y, z;
 		U8 intensity=0;
 		U16 classification=0;
-		int max_num = INT_MAX;
+		int max_num = WINT_MAX;
 		int num_read = 0;
 		
 		// Open the LAS file
@@ -436,7 +436,11 @@ bool LASBlock::singleLasDivideTask(std::pair<std::string, LASinfo> subtile_info,
 
 void LASBlock::run()
 {
+#ifdef _WIN32
 	int maxThreadNum = std::thread::hardware_concurrency();
+#else defined linux
+	int maxThreadNum = boost::thread::hardware_concurrency();
+#endif
 	int thread_num = BlockParam.ThreadNum;
 	int tile_task = LasRetainBoundary_info.size();
 
@@ -457,6 +461,7 @@ void LASBlock::run()
 		std::cout << "Total task is:" << tile_task << std::endl;
 		for (int i=0;i< tile_task;i+= thread_num)
 		{
+#ifdef _WIN32
 			std::vector<std::thread> threads;
 
 			int remain_thread_num = tile_task - i  >= thread_num ? thread_num : tile_task - i ;
@@ -467,6 +472,19 @@ void LASBlock::run()
 
 			for (int j = 0; j < remain_thread_num; j++)
 				threads[j].join();
+#else defined linux
+			std::vector<boost::thread> threads;
+
+			int remain_thread_num = tile_task - i  >= thread_num ? thread_num : tile_task - i ;
+			std::cout << "The left task is:" << tile_task - i << std::endl;
+
+			for (int j=0;j< remain_thread_num;j++)
+				threads.push_back(boost::thread(&LASBlock::singleLasDivideTask, this,LasRetainBoundary_info[i+j], subtile_contain_laspath[i+j]));
+
+			for (int j = 0; j < remain_thread_num; j++)
+				threads[j].join();
+#endif
+			
 		}
 	}
 	

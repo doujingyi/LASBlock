@@ -1,7 +1,15 @@
 #include <iostream>
 #include "LASBlock.h"
-#include<io.h>
-#include<direct.h>
+
+#ifdef _WIN32
+	#include<io.h>
+	#include<direct.h>
+#else defined linux
+	#include <sys/io.h>
+	#include <sys/stat.h>
+	#include <sys/types.h> 
+	#include <unistd.h>
+#endif
 static void Usage(const char* pszErrorMsg = NULL)
 {
 	fprintf(stderr, "Usage:\n");
@@ -113,14 +121,19 @@ int main(int argc, char* argv[])
 		std::cerr << "no output las dir!" << "\n";
 		exit(1);
 	}
-
+#ifdef _WIN32
 	if (0 != _access(output_dir.c_str(), 0))
 	{
 		// if this folder not exist, create a new one.
-		//_mkdir(output_dir.c_str());   // 返回 0 表示创建成功，-1 表示失败
-		std::cerr << "Don't find output folder!\n";
-		exit(1);
+		_mkdir(output_dir.c_str());    
 	}
+#else defined linux
+	if (0 != eaccess(output_dir.c_str(), F_OK))
+	{
+		// if this folder not exist, create a new one.
+		int flag = mkdir(output_dir.c_str(),S_IRUSR | S_IWUSR | S_IXUSR | S_IRWXG | S_IRWXO);
+	}
+#endif
 
 	LASBlock::params param;
 	param.tile_size = tile_size;

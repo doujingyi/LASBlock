@@ -4,13 +4,21 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include"lasreader.hpp"
 #include"laswriter.hpp"
+#include"cmath"
+#include"limits.h"
 #include<iostream>
 #include<vector>
 #include<algorithm>
 #include<string>
 #include<fstream>
 #include<sstream>
+#ifdef _WIN32
+	#include <thread>
+#else defined linux
+	#include<boost/thread/thread.hpp>
+#endif
 #include <thread>
+#include<cfloat>
 
 enum POXTFIX { LAS, LAZ };
 struct LASinfo
