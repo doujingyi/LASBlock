@@ -1,0 +1,1 @@
+/usr/bin/g++-7  -g  -rdynamic CMakeFiles/LASBlock.dir/LASBlock.cpp.o CMakeFiles/LASBlock.dir/main.cpp.o  -o ../bin/Linux/LASBlock  -L/home/xyliu/Documents/LASBlock/app/LASBlock -Wl,-rpath,/home/xyliu/Documents/LASBlock/app/LASBlock /usr/local/lib/LASlib/libLASlib.a -lboost_system -lboost_thread -lboost_chrono -lboost_date_time -lboost_atomic -lpthread 

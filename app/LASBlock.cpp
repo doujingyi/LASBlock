@@ -41,7 +41,16 @@ void LASBlock::setParam(params param)
 		std::string filename;
 		std::getline(fp,filename);
 		if (filename.size() > 0)
+		{
+			size_t pos = 0;
+			pos = filename.find_last_of("\r");
+			//if we read a windows file(txt \r\n)
+			if(pos>=0 && pos<filename.size())
+			{
+				filename = filename.substr(0,pos);
+			}
 			lasfile_dir.emplace_back(filename);
+		}
 	}
 	fp.close();
 
@@ -325,7 +334,7 @@ bool LASBlock::singleLasDivideTask(std::pair<std::string, LASinfo> subtile_info,
 		double x, y, z;
 		U8 intensity=0;
 		U16 classification=0;
-		int max_num = WINT_MAX;
+		int max_num = INT_MAX;
 		int num_read = 0;
 		
 		// Open the LAS file

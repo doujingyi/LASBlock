@@ -29,7 +29,7 @@ if(MSVC)
     	add_definitions(-D_CRT_SECURE_NO_WARNINGS)
     	string(APPEND CMAKE_EXE_LINKER_FLAGS_DEBUG " /NODEFAULTLIB:LIBCMT /NODEFAULTLIB:MSVCRT")
 else()
-	add_compile_options(-O3 -Wall -Wno-strict-aliasing)
+	add_compile_options(-Wall -Wno-strict-aliasing)
 endif()
 
 # set MD to MT
@@ -42,10 +42,10 @@ set(CompilerFlags
     CMAKE_C_FLAGS_DEBUG
     CMAKE_C_FLAGS_RELEASE
   )
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -pthread -O2 -lboost_system")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -lboost_system")
 foreach(CompilerFlags ${CompilerFlags})
   #string(REPLACE "/MD" "/MT" ${CompilerFlags} "${${CompilerFlags}}")
-   string(REPLACE "/Od" "/O2" ${CompilerFlags} "${${CompilerFlags}}")
+  string(REPLACE "/Od" "/O2" ${CompilerFlags} "${${CompilerFlags}}")
 endforeach()
 endif()
 

@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/xyliu/Documents/LASBlock/build/app",
+  "command": "/usr/bin/g++-7   -I/usr/local/include/LASlib  -g   -Wall -Wno-strict-aliasing -o CMakeFiles/LASBlock.dir/LASBlock.cpp.o -c /home/xyliu/Documents/LASBlock/app/LASBlock.cpp",
+  "file": "/home/xyliu/Documents/LASBlock/app/LASBlock.cpp"
+},
+{
+  "directory": "/home/xyliu/Documents/LASBlock/build/app",
+  "command": "/usr/bin/g++-7   -I/usr/local/include/LASlib  -g   -Wall -Wno-strict-aliasing -o CMakeFiles/LASBlock.dir/main.cpp.o -c /home/xyliu/Documents/LASBlock/app/main.cpp",
+  "file": "/home/xyliu/Documents/LASBlock/app/main.cpp"
+}
+]
